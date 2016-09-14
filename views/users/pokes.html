@@ -1,0 +1,80 @@
+<html>
+	<head>
+
+		<link rel="stylesheet" href="/static/bootstrap/css/bootstrap.css" type="text/css">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+		<script type="text/javascript" src='/static/bootstrap/js/bootstrap.js'></script>
+		<link rel="stylesheet" href="/static/css/navbar-fixed-top.css" type="text/css">
+	</head>
+	<body>
+		<!-- Fixed navbar -->
+		
+		<div class="container">
+			
+			<div class="row">
+				<div class="col-md-10">
+					<h1>Welcome {{name}}</h1>
+					<div class="pokers">
+						{%if not numpokes%}
+							<h4>0 people poked you</h4>
+						{%else%}
+							<h4>{{numpokes}} people poked you</h4>
+						{%endif%}
+						
+						{%for mypoker in mypokers%}
+							<p>{{mypoker['name']}} has poked you {{mypoker['pokedme']}} times</p>
+						{%endfor%}
+					</div>
+					
+				</div>
+				<div class="col-md-2">
+					<a href="/users/logout">Logout</a>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-md-12">
+					<h3>People you may want to poke:</h3>
+					<table class="table table-striped table-bordered table-hover">
+						<thead>
+							<tr>
+								<th>Name</th>
+								<th>Alias</th>
+								<th>Email Address</th>
+								<th>Poke History</th>
+								<th>Action</th>
+							</tr>
+						</thead>
+						<tbody>
+							
+							{%for user in users%}
+								<tr>
+									<td>
+										{{user['name']}}
+									</td>
+									<td>
+										{{user['alias']}}
+									</td>
+									<td>
+										{{user['email']}}
+									</td>
+									<td>
+										{{user['history']}}
+									</td>
+									<td>
+										<form action="/pokeuser/{{user['id']}}" method="post">
+											<button class="btn btn-primary">
+												Poke
+											</button>
+										</form>
+									</td>
+								</tr>
+							{%endfor%}
+						</tbody>
+					</table>
+				</div>
+			</div>
+			
+	    </div> <!-- /container -->
+	</body>
+</html>
